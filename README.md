@@ -1,7 +1,10 @@
 # showdate
 Command line utility to display date/time.
+
 The date/time to be displayed can be either the current date/time (default), or the creation or modification date/time of a file or directory.
+
 By default the local time is shown, but it's also possible to show UTC time (Coordinated Universal Time).
+
 The format used can be specified, using the same format string as the C function `strftime()`.
 
 ## command line help
