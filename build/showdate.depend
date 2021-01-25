@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1611574575 source:z:\_experiments_\showdate\showdate.c
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<argtable2.h>
+
