@@ -46,7 +46,7 @@ int main (int argc, char **argv)
   if (help->count > 0) {
     printf("Usage: %s", progname);
     arg_print_syntax(stdout, argtable, "\n");
-    printf("Display a date in the specified format\n");
+    printf("Display date/time in the specified format\n");
     arg_print_glossary(stdout, argtable, "  %-19s %s\n");
     arg_freetable(argtable, sizeof(argtable) / sizeof(*argtable));
     return 0;
