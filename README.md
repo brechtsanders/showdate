@@ -5,7 +5,7 @@ The date/time to be displayed can be either the current date/time (default), or 
 
 By default the local time is shown, but it's also possible to show UTC time (Coordinated Universal Time).
 
-The format used can be specified, using the same format string as the C function `strftime()`.
+The format used can be specified, using the same format string as the `strftime()` C function.
 
 ## command line help
 
