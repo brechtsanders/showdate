@@ -42,7 +42,7 @@ jobs:
     - name: Build
       run: |
         dir deps/lib
-        make install CC=${{ matrix.config.cc }} CFLAGS="-Ideps/include" LIBS="deps/lib/libargtable2.a" PREFIX=build_result
+        make install CC=${{ matrix.config.cc }} CFLAGS="-Ideps/include" LDFLAGS="-Ldeps/lib" PREFIX=build_result
     - name: Package
       run: |
         tar cfj ./${{ env.basename }}${{ matrix.config.archname }}.tar.bz2 --strip-components=1 build_result
