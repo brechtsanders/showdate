@@ -14,13 +14,13 @@ jobs:
       fail-fast: true
       matrix:
         config:
-#        - {
-#            name: "Windows MinGW-w64 (32-bit)",
-#            archname: "win32",
-#            os: windows-latest,
-#            cc: "i686-w64-mingw32-gcc.exe",
-#            cxx: "i686-w64-mingw32-g++.exe",
-#          }
+        - {
+            name: "Windows MinGW-w64 (32-bit)",
+            archname: "win32",
+            os: windows-latest,
+            cc: "i686-w64-mingw32-gcc.exe",
+            cxx: "i686-w64-mingw32-g++.exe",
+          }
         - {
             name: "Windows MinGW-w64 (64-bit)",
             archname: "win64",
@@ -35,7 +35,7 @@ jobs:
       run: |
         curl -k -L -o argtable${{ env.agrtable_version }}.tar.gz -# http://prdownloads.sourceforge.net/argtable/argtable${{ env.agrtable_version }}.tar.gz
         tar xfz argtable${{ env.agrtable_version }}.tar.gz
-        cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=../deps -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
+        cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=../deps -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER:STRING=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER:STRING=${{ matrix.config.cxx }} -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
         make -Cbuild_argtable install/strip
         mkdir deps/include
         copy argtable${{ env.agrtable_version }}/src/argtable2.h deps/include
