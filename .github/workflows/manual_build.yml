@@ -4,6 +4,7 @@ on:
 
 env:
   basename: "showdate"
+  agrtable_version: "2-13"
 
 jobs:
   build:
@@ -31,7 +32,10 @@ jobs:
     - if: contains( matrix.config.archname, 'win' )
       name: argtable2
       run: |
-        echo "Build prerequisite"
+        wget http://prdownloads.sourceforge.net/argtable/argtable${{ env.agrtable_version }}.tar.gz
+        tar xfz argtable${{ env.agrtable_version }}.tar.gz
+        cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=deps -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
+        make -Cbuild_argtable install/strip
     - uses: actions/checkout@v1
     - name: Build
       run: |
