@@ -32,6 +32,7 @@ jobs:
     - name: Build
       run: |
         ${{ matrix.config.cc }} --version
+        cmake --version
         dir
         make install CC=${{ matrix.config.cc }} PREFIX=build_result
     - name: Package
