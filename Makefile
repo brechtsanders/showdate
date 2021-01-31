@@ -61,7 +61,7 @@ all: $(TOOLS_BIN)
 showdate$(BINEXT): %$(BINEXT): showdate.o
 	$(CC) $(STRIPFLAG) -o $@ $^ $(LDFLAGS) $(LIBS)
 
-install: all doc
+install: all
 	$(MKDIR) $(PREFIX)/bin
 	$(CP) $(TOOLS_BIN) $(PREFIX)/bin/
 
