@@ -23,8 +23,8 @@ endif
 INCS += -Iinclude
 CFLAGS += $(INCS) -Os
 CPPFLAGS += $(INCS) -Os
-LIBS =
-LDFLAGS = -largtable2
+LIBS = -largtable2
+LDFLAGS = 
 ifeq ($(OS),Darwin)
 STRIPFLAG =
 else
@@ -59,7 +59,7 @@ all: $(TOOLS_BIN)
 	$(CC) -c -o $@ $< $(CFLAGS) 
 
 showdate$(BINEXT): %$(BINEXT): showdate.o
-	$(CC) $(STRIPFLAG) -o $@ $^ $(LDFLAGS)
+	$(CC) $(STRIPFLAG) -o $@ $^ $(LIBS) $(LDFLAGS)
 
 install: all doc
 	$(MKDIR) $(PREFIX)/bin
