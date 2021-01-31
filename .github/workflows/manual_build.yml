@@ -44,7 +44,7 @@ jobs:
         cmake --version
         ninja --version
         dir
-        make install CC=${{ matrix.config.cc }} PREFIX=build_result
+        make install CC=${{ matrix.config.cc }} INCS="-Ideps" PREFIX=build_result
     - name: Package
       run: |
         tar cfj ./${{ env.basename }}${{ matrix.config.archname }}.tar.bz2 --strip-components=1 build_result

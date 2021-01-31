@@ -20,9 +20,9 @@ BINEXT =
 SOLIBPREFIX = lib
 SOEXT = .so
 endif
-INCS = -Iinclude
-CFLAGS = $(INCS) -Os
-CPPFLAGS = $(INCS) -Os
+INCS += -Iinclude
+CFLAGS += $(INCS) -Os
+CPPFLAGS += $(INCS) -Os
 LIBS =
 LDFLAGS = -largtable2
 ifeq ($(OS),Darwin)
