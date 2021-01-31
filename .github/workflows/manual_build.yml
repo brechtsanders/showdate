@@ -14,13 +14,13 @@ jobs:
       fail-fast: true
       matrix:
         config:
-        - {
-            name: "Windows MinGW-w64 (32-bit)",
-            archname: "win32",
-            os: windows-latest,
-            cc: "i686-w64-mingw32-gcc.exe",
-            cxx: "i686-w64-mingw32-g++.exe",
-          }
+#        - {
+#            name: "Windows MinGW-w64 (32-bit)",
+#            archname: "win32",
+#            os: windows-latest,
+#            cc: "i686-w64-mingw32-gcc.exe",
+#            cxx: "i686-w64-mingw32-g++.exe",
+#          }
         - {
             name: "Windows MinGW-w64 (64-bit)",
             archname: "win64",
@@ -32,7 +32,7 @@ jobs:
     - if: contains( matrix.config.archname, 'win' )
       name: argtable2
       run: |
-        wget http://prdownloads.sourceforge.net/argtable/argtable${{ env.agrtable_version }}.tar.gz
+        curl -k -L -# http://prdownloads.sourceforge.net/argtable/argtable${{ env.agrtable_version }}.tar.gz
         tar xfz argtable${{ env.agrtable_version }}.tar.gz
         cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=deps -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
         make -Cbuild_argtable install/strip
