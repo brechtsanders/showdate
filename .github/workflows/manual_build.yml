@@ -28,11 +28,16 @@ jobs:
             cxx: "x86_64-w64-mingw32-g++.exe",
           }
     steps:
+    - if: contains( matrix.config.archname, 'win' )
+      name: argtable2
+      run: |
+        echo "Build prerequisite"
     - uses: actions/checkout@v1
     - name: Build
       run: |
         ${{ matrix.config.cc }} --version
         cmake --version
+        ninja --version
         dir
         make install CC=${{ matrix.config.cc }} PREFIX=build_result
     - name: Package
