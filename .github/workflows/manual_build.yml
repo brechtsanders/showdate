@@ -11,7 +11,7 @@ jobs:
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         config:
         - {
@@ -35,6 +35,7 @@ jobs:
     - if: contains( matrix.config.archname, 'win' )
       name: argtable2
       run: |
+        dir C:/msys64
         curl -k -L -o argtable${{ env.agrtable_version }}.tar.gz -# http://prdownloads.sourceforge.net/argtable/argtable${{ env.agrtable_version }}.tar.gz
         tar xfz argtable${{ env.agrtable_version }}.tar.gz
         cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=../deps -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_C_COMPILER:FILEPATH=${{ matrix.config.mingwpath }}/${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER:FILEPATH=${{ matrix.config.mingwpath }}/${{ matrix.config.cxx }} -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
