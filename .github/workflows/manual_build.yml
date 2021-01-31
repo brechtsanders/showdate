@@ -1,0 +1,44 @@
+name: Manually triggered workflow
+on:
+  workflow_dispatch:
+
+env:
+  basename: "showdate"
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        config:
+        - {
+            name: "Windows MinGW-w64 (32-bit)",
+            archname: "win32",
+            os: windows-latest,
+            cc: "i686-w64-mingw32-gcc.exe",
+            cxx: "i686-w64-mingw32-g++.exe",
+          }
+        - {
+            name: "Windows MinGW-w64 (64-bit)",
+            archname: "win64",
+            os: windows-latest,
+            cc: "x86_64-w64-mingw32-gcc.exe",
+            cxx: "x86_64-w64-mingw32-g++.exe",
+          }
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        ${{ matrix.config.cc }} --version
+        make -C${{ env.MAKEDIR }} install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
+        echo "::set-env name=LD_LIBRARY_PATH::$(pwd)/build_result/lib:$LD_LIBRARY_PATH"
+    - name: Package
+      run: |
+        tar cfj ./${{ env.basename }}${{ matrix.config.archname }}.tar.bz2 --strip-components=1 build_result
+    - name: Upload
+      uses: actions/upload-artifact@v1
+      with:
+        path: ./${{ env.basename }}${{ matrix.config.archname }}.tar.bz2
+        name: ${{ env.basename }}${{ matrix.config.archname }}.tar.bz2
