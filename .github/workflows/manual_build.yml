@@ -32,6 +32,10 @@ jobs:
     - name: Build
       run: |
         ${{ matrix.config.cc }} --version
+        pwd
+        set
+        ls
+        dir
         make install CC=${{ matrix.config.cc }} PREFIX=build_result
         echo "::set-env name=LD_LIBRARY_PATH::$(pwd)/build_result/lib:$LD_LIBRARY_PATH"
     - name: Package
