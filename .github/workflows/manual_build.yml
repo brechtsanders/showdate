@@ -14,14 +14,14 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - {
-            name: "Windows MinGW-w64 (32-bit)",
-            archname: "win32",
-            os: windows-latest,
-            cc: "i686-w64-mingw32-gcc.exe",
-            cxx: "i686-w64-mingw32-g++.exe",
-            #mingwpath: "C:/msys64/mingw32/bin",
-          }
+#        - {
+#            name: "Windows MinGW-w64 (32-bit)",
+#            archname: "win32",
+#            os: windows-latest,
+#            cc: "i686-w64-mingw32-gcc.exe",
+#            cxx: "i686-w64-mingw32-g++.exe",
+#            #mingwpath: "C:/msys64/mingw32/bin",
+#          }
         - {
             name: "Windows MinGW-w64 (64-bit)",
             archname: "win64",
