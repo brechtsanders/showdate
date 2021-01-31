@@ -32,7 +32,7 @@ jobs:
     - name: Build
       run: |
         ${{ matrix.config.cc }} --version
-        make -C${{ env.MAKEDIR }} install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
+        make install CC=${{ matrix.config.cc }} PREFIX=build_result
         echo "::set-env name=LD_LIBRARY_PATH::$(pwd)/build_result/lib:$LD_LIBRARY_PATH"
     - name: Package
       run: |
