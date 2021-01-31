@@ -41,8 +41,8 @@ jobs:
         copy argtable${{ env.agrtable_version }}/src/argtable2.h deps/include
     - name: Build
       run: |
-        dir deps
-        make install CC=${{ matrix.config.cc }} CFLAGS="-Ideps/include" LDFLAGS="-Ldeps/lib" PREFIX=build_result
+        dir deps/lib
+        make install CC=${{ matrix.config.cc }} CFLAGS="-Ideps/include" LIBS="-Ldeps/lib -largtable2" PREFIX=build_result
     - name: Package
       run: |
         tar cfj ./${{ env.basename }}${{ matrix.config.archname }}.tar.bz2 --strip-components=1 build_result
