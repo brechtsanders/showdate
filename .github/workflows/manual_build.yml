@@ -36,15 +36,13 @@ jobs:
         tar xfz argtable${{ env.agrtable_version }}.tar.gz
         cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=../deps -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
         make -Cbuild_argtable install/strip
-        dir deps
+        mkdir deps/include
+        copy src/argtable2.h deps/include
     - uses: actions/checkout@v1
     - name: Build
       run: |
         ${{ matrix.config.cc }} --version
-        cmake --version
-        ninja --version
-        dir
-        make install CC=${{ matrix.config.cc }} INCS="-Ideps" PREFIX=build_result
+        make install CC=${{ matrix.config.cc }} CFLAGS="-Ideps/include" LDFLAGS="-Ldeps/lib" PREFIX=build_result
     - name: Package
       run: |
         tar cfj ./${{ env.basename }}${{ matrix.config.archname }}.tar.bz2 --strip-components=1 build_result
