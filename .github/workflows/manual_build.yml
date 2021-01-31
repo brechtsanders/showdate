@@ -37,7 +37,7 @@ jobs:
         cmake -Wno-dev -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX:PATH=../deps -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_SHARED_LIBS:BOOL=OFF -Sargtable${{ env.agrtable_version }} -Bbuild_argtable
         make -Cbuild_argtable install/strip
         mkdir deps/include
-        copy src/argtable2.h deps/include
+        copy argtable${{ env.agrtable_version }}/src/argtable2.h deps/include
     - uses: actions/checkout@v1
     - name: Build
       run: |
