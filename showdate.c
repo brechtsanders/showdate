@@ -41,7 +41,7 @@ int main (int argc, char **argv)
     return 1;
   }
   //parse command line arguments
-  argerrors = arg_parse(argc,argv,argtable);
+  argerrors = arg_parse(argc, argv, argtable);
   //show help if requested (takes precedence over error reporting)
   if (help->count > 0) {
     printf("Usage: %s", progname);

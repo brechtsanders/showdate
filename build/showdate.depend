@@ -8,3 +8,12 @@
 	<fcntl.h>
 	<argtable2.h>
 
+1612457143 source:z:\showdate\showdate.c
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<argtable2.h>
+
