@@ -14,6 +14,19 @@
 
 #define DEFAULT_DATETIME_FORMAT "%Y-%m-%d %H:%M:%S"
 
+#define DATETIME_ENTITY_SECOND  0
+#define DATETIME_ENTITY_MINUTE  1
+#define DATETIME_ENTITY_HOUR    2
+#define DATETIME_ENTITY_DAY     3
+#define DATETIME_ENTITY_COUNT   4
+
+const time_t datetime_entity_value[DATETIME_ENTITY_COUNT] = {
+  1,
+  60,
+  3600,
+  86400
+};
+
 int main (int argc, char **argv)
 {
   int argerrors;
@@ -23,6 +36,8 @@ int main (int argc, char **argv)
   struct arg_lit* show_utc;
   struct arg_str* use_file_created;
   struct arg_str* use_file_modified;
+  struct arg_int* datetime_add[DATETIME_ENTITY_COUNT];
+  struct arg_int* datetime_sub[DATETIME_ENTITY_COUNT];
   struct arg_end* end;
   void* argtable[] = {
     help              = arg_lit0("h", "help",             "print this help and exit"),
@@ -31,6 +46,14 @@ int main (int argc, char **argv)
     show_utc          = arg_lit0("u", "utc",              "show UTC time instead of local time"),
     use_file_created  = arg_str0("c", "created",  "file", "use file creation date/time"),
     use_file_modified = arg_str0("m", "modified", "file", "use file modification date/time"),
+    datetime_add[DATETIME_ENTITY_DAY]    = arg_int0(NULL, "add-days",    "n", "add n days to date/time"),
+    datetime_sub[DATETIME_ENTITY_DAY]    = arg_int0(NULL, "sub-days",    "n", "subtract n days from date/time"),
+    datetime_add[DATETIME_ENTITY_HOUR]   = arg_int0(NULL, "add-hours",   "n", "add n hours to date/time"),
+    datetime_sub[DATETIME_ENTITY_HOUR]   = arg_int0(NULL, "sub-hours",   "n", "subtract n hours from date/time"),
+    datetime_add[DATETIME_ENTITY_MINUTE] = arg_int0(NULL, "add-minutes", "n", "add n minutes to date/time"),
+    datetime_sub[DATETIME_ENTITY_MINUTE] = arg_int0(NULL, "sub-minutes", "n", "subtract n minutes from date/time"),
+    datetime_add[DATETIME_ENTITY_SECOND] = arg_int0(NULL, "add-seconds", "n", "add n seconds to date/time"),
+    datetime_sub[DATETIME_ENTITY_SECOND] = arg_int0(NULL, "sub-seconds", "n", "subtract n seconds from date/time"),
     end               = arg_end(20)
   };
   const char* progname = APPLICATION_NAME;
@@ -91,6 +114,16 @@ int main (int argc, char **argv)
     timestamp = fileinfo.st_mtime;
   } else {
     timestamp = time(NULL);
+  }
+
+  //adjust timestamp if requested
+  int i;
+  int j;
+  for (i = 0; i < DATETIME_ENTITY_COUNT; i++) {
+    for (j = 0; j < datetime_add[i]->count; j++)
+      timestamp += datetime_entity_value[i] * datetime_add[i]->ival[j];
+    for (j = 0; j < datetime_sub[i]->count; j++)
+      timestamp -= datetime_entity_value[i] * datetime_sub[i]->ival[j];
   }
 
   //print timestamp

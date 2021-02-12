@@ -1,5 +1,9 @@
 0.1.1
 
+2021-02-12  Brecht Sanders  https://github.com/brechtsanders/
+
+  * added command line parameters: --add-days/--sub-days/--add-hours/--sub-hours/--add-minutes/--sub-minutes/--add-seconds/--sub-seconds
+
 0.1.0
 
 2021-01-25  Brecht Sanders  https://github.com/brechtsanders/
