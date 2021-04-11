@@ -50,6 +50,7 @@ jobs:
       name: Install prerequisites (Windows)
       uses: msys2/setup-msys2@v2
       with:
+        release: false
         update: false
         install: >-
           argtable2
