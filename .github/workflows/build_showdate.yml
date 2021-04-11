@@ -46,6 +46,10 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
+    - if: matrix.config.os == 'windows-latest'
+      name: Install prerequisites (Linux)
+      run: |
+         pacman --noconfirm -S libargtable2
     - if: matrix.config.os == 'ubuntu-latest'
       name: Install prerequisites (Linux)
       run: |
