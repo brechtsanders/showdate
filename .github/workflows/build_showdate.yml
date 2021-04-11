@@ -1,0 +1,57 @@
+name: autobuild
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {
+            name: "Windows 64-bit MinGW-w64 (make)", artifact: "win64-MinGW.tar.bz2",
+            os: windows-latest,
+            cc: "x86_64-w64-mingw32-gcc.exe", cxx: "x86_64-w64-mingw32-g++.exe",
+            configure_method: "", build_method: "make"
+          }
+        - {
+            name: "Windows 32-bit MinGW-w64 (make)", artifact: "win64-MinGW.tar.bz2",
+            os: windows-latest,
+            cc: "i686-w64-mingw32-gcc.exe", cxx: "i686-w64-mingw32-g++.exe",
+            configure_method: "", build_method: "make"
+          }
+        - {
+            name: "Ubuntu GCC (make)", artifact: "linux.tar.bz2",
+            os: ubuntu-latest,
+            cc: "gcc", cxx: "g++",
+            configure_method: "", build_method: "make"
+          }
+        - {
+            name: "Ubuntu Clang (make)", artifact: "linux.tar.bz2",
+            os: ubuntu-latest,
+            cc: "clang", cxx: "clang++",
+            configure_method: "", build_method: "make"
+          }
+        - {
+            name: "macOS Clang (make)", artifact: "macos.tar.bz2",
+            os: macos-latest,
+            cc: "clang", cxx: "clang++",
+            configure_method: "", build_method: "make"
+          }
+    steps:
+    - uses: actions/checkout@v1
+    - if: matrix.config.cc == 'i686-w64-mingw32-gcc.exe'
+      name: Add mingw32 to path
+      shell: bash
+      run: |
+         echo 'C:\msys64\mingw32\bin' >> $GITHUB_PATH
+    - if: matrix.config.build_method == 'make'
+      name: Build (make)
+      run: |
+        make CC=${{ matrix.config.cc }} DOXYGEN=
