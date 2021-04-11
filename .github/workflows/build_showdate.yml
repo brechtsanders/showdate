@@ -18,13 +18,15 @@ jobs:
             name: "Windows 64-bit MinGW-w64 (make)", artifact: "win64-MinGW.tar.bz2",
             os: windows-latest,
             cc: "x86_64-w64-mingw32-gcc.exe", cxx: "x86_64-w64-mingw32-g++.exe",
-            configure_method: "", build_method: "make"
+            configure_method: "", build_method: "make",
+            msys_prefix: "mingw-w64-x86_64-"
           }
         - {
             name: "Windows 32-bit MinGW-w64 (make)", artifact: "win64-MinGW.tar.bz2",
             os: windows-latest,
             cc: "i686-w64-mingw32-gcc.exe", cxx: "i686-w64-mingw32-g++.exe",
-            configure_method: "", build_method: "make"
+            configure_method: "", build_method: "make",
+            msys_prefix: "mingw-w64-i686-"
           }
         - {
             name: "Ubuntu GCC (make)", artifact: "linux.tar.bz2",
@@ -53,7 +55,7 @@ jobs:
         release: false
         update: false
         install: >-
-          argtable2
+          ${{ matrix.config.msys_prefix }}argtable
     - if: matrix.config.os == 'ubuntu-latest'
       name: Install prerequisites (Linux)
       run: |
