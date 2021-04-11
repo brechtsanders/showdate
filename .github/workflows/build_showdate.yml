@@ -47,9 +47,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - if: matrix.config.os == 'windows-latest'
-      name: Install prerequisites (Linux)
-      run: |
-         pacman --noconfirm -S libargtable2
+      name: Install prerequisites (Windows)
+      uses: msys2/setup-msys2@v2
+      with:
+        update: false
+        install: >-
+          libargtable2
     - if: matrix.config.os == 'ubuntu-latest'
       name: Install prerequisites (Linux)
       run: |
