@@ -52,7 +52,7 @@ jobs:
       with:
         update: false
         install: >-
-          libargtable2
+          argtable2
     - if: matrix.config.os == 'ubuntu-latest'
       name: Install prerequisites (Linux)
       run: |
