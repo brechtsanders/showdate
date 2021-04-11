@@ -46,6 +46,10 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
+    - if: matrix.config.os == 'ubuntu-latest'
+      name: Install prerequisites (Linux)
+      run: |
+         sudo apt-get install libargtable2-dev
     - if: matrix.config.cc == 'i686-w64-mingw32-gcc.exe'
       name: Add mingw32 to path
       shell: bash
