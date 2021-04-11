@@ -1,3 +1,7 @@
+0.1.2
+
+  * added GitHub action for automatic build (Windows / macOS / Linux)
+
 0.1.1
 
 2021-02-12  Brecht Sanders  https://github.com/brechtsanders/
